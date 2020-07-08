@@ -1,0 +1,1 @@
+package com.khramykh.dao.interfaces;import com.khramykh.model.User;public interface UserDao {    public boolean addUser(User user);    public boolean isExists(User user);    public User find (String email, String password);}

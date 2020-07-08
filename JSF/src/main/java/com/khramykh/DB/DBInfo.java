@@ -1,0 +1,1 @@
+package com.khramykh.DB;public class DBInfo {    public static final String DbName = "Bank";    public static final String DbUsername = "root";    public static final String DbPassword = "root";}

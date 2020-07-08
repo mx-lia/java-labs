@@ -1,0 +1,47 @@
+{
+    "name": "Expedition",
+    "fields": [
+        {
+            "fieldName": "complexity",
+            "fieldType": "Complexity",
+            "fieldValues": "EXTREME,HARD,NORMAL,EASY"
+        },
+        {
+            "fieldName": "dispatchTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "deadLine",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "rate",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": 1
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "unit",
+            "otherEntityRelationshipName": "expedition",
+            "relationshipName": "unit",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191222101028",
+    "entityTableName": "expedition",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

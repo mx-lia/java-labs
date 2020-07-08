@@ -1,0 +1,11 @@
+#header{
+    border-width: 1px;
+    border-color: red;
+    border-style: solid;
+}
+
+#footer{
+    border-width: 1px;
+    border-color: darkblue;
+    border-style: solid;
+}

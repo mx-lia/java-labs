@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-unit-heading">Create or edit a Unit</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_hireDate">Hire Date</label>
+                    <div class="input-group">
+                        <input id="field_hireDate" type="text" class="form-control" name="hireDate" ngbDatepicker  #hireDateDp="ngbDatepicker" formControlName="hireDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="hireDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_biography">Biography</label>
+                    <textarea class="form-control" name="biography" id="field_biography"
+                              formControlName="biography"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_numberOfTeeth">Number Of Teeth</label>
+                    <input type="number" class="form-control" name="numberOfTeeth" id="field_numberOfTeeth"
+                           formControlName="numberOfTeeth"/>
+                    <div *ngIf="editForm.get('numberOfTeeth').invalid && (editForm.get('numberOfTeeth').dirty || editForm.get('numberOfTeeth').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('numberOfTeeth').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('numberOfTeeth').errors.max">
+                            This field cannot be more than 32.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('numberOfTeeth')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('user').value?.id ? editForm.get('user').value : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_image">Image</label>
+                    <select class="form-control" id="field_image" name="image" formControlName="image">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="imageOption.id === editForm.get('image').value?.id ? editForm.get('image').value : imageOption" *ngFor="let imageOption of images; trackBy: trackImageById">{{imageOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

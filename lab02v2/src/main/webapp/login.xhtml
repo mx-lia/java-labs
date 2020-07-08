@@ -1,0 +1,34 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:cn="http://java.sun.com/jsf/composite/components">
+
+<h:head>
+    <title>Login</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="resources/templates/default.xhtml">
+        <ui:define name="content">
+            <h:graphicImage height="200" value="#{resource['images:jsf.jpeg']}"/>
+            <cn:login
+                    userNameLabel="User Name"
+                    userNameValue="#{loginController.userName}"
+
+                    passwordLabel="Password"
+                    passwordValue="#{loginController.password}"
+
+                    loginButtonLabel="Login"
+                    loginButtonAction="#{loginController.login()}"/>
+            <ui:fragment rendered="#{loginController.loginError}">
+                <div>
+                    <h:outputText value="Wrong credintials" style="color:red"/>
+                </div>
+            </ui:fragment>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

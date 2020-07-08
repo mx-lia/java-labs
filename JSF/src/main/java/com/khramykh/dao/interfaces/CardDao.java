@@ -1,0 +1,1 @@
+package com.khramykh.dao.interfaces;import com.khramykh.model.Card;import com.khramykh.model.User;import java.util.List;public interface CardDao {    public int addCard(Card card);    public Card find(String number);    public List<Card> findAll();    public void pay(Card card);}

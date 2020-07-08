@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<composite:interface>
+    <composite:attribute name="userNameLabel"/>
+    <composite:attribute name="userNameValue"/>
+    <composite:attribute name="passwordLabel"/>
+    <composite:attribute name="passwordValue"/>
+    <composite:attribute name="loginButtonLabel"/>
+    <composite:attribute name="loginButtonAction"
+                         method-signature="java.lang.String login()"/>
+</composite:interface>
+
+<composite:implementation>
+    <h:form>
+        <h:message for="loginPanel" style="color:red;"/>
+
+        <h:panelGrid columns="2" id="loginPanel">
+            <h:outputText value="#{cc.attrs.userNameLabel}"/>
+            <h:inputText id="username" required="true" value="#{cc.attrs.userNameValue}"
+                         label="#{cc.attrs.userNameLabel}">
+                <f:validateLength minimum="2" maximum="64"/>
+            </h:inputText>
+
+            <h:outputText value="#{cc.attrs.passwordLabel}"/>
+            <h:inputSecret id="password" required="true" value="#{cc.attrs.passwordValue}"
+                           label="#{cc.attrs.passwordLabel}">
+                <f:validateLength minimum="2" maximum="64"/>
+            </h:inputSecret>
+
+        </h:panelGrid>
+        <div>
+            <h:message for="username" style="color:red"/><br/>
+            <h:message for="password" style="color:red"/>
+        </div>
+        <h:commandButton action="#{cc.attrs.loginButtonAction}"
+                         value="#{cc.attrs.loginButtonLabel}"/>
+    </h:form>
+</composite:implementation>
+</html>

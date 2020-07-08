@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Vehicles</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/resources/static/css/style.css}"/>
+  <script th:src="@{/resources/static/js/vehicles.js}"></script>
+</head>
+<body>
+<h1>Vehicles List</h1>
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+  <a href="/vehicles/create">Add Vehicle</a>
+</div>
+<a href="/logout">Logout</a>
+<br/><br/>
+<div>
+  <table border="1">
+    <thead>
+    <tr>
+      <td>Route</td>
+      <td>Type</td>
+      <td>Model</td>
+      <td>Release year</td>
+    </tr>
+    </thead>
+    <th:block th:each="vehicle : ${vehicles}">
+      <tr th:id="${vehicle.id}+'-tr'">
+        <td th:text="${vehicle.route.id}"></td>
+        <td th:text="${vehicle.type}"></td>
+        <td th:text="${vehicle.model}"></td>
+        <td th:text="${vehicle.releaseYear}"></td>
+        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') }">
+          <button th:onclick="'editVehicle(' + ${vehicle.id} + ');'">Edit</button>
+        </td>
+        <td th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+          <button th:onclick="'deleteVehicle(' + ${vehicle.id} + ');'">Delete</button>
+        </td>
+      </tr>
+    </th:block>
+  </table>
+</div>
+</body>
+</html>

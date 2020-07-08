@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span>Units</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-unit" [routerLink]="['/unit/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Unit
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="units?.length === 0">
+        <span>No units found</span>
+    </div>
+    <div class="table-responsive" *ngIf="units?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span>ID</span></th>
+            <th scope="col" ><span>Hire Date</span></th>
+            <th scope="col" ><span>Biography</span></th>
+            <th scope="col" ><span>Number Of Teeth</span></th>
+            <th scope="col" ><span>User</span></th>
+            <th scope="col" ><span>Image</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let unit of units ;trackBy: trackId">
+                <td><a [routerLink]="['/unit', unit.id, 'view' ]">{{unit.id}}</a></td>
+                <td>{{unit.hireDate | date:'mediumDate'}}</td>
+                <td>{{unit.biography}}</td>
+                <td>{{unit.numberOfTeeth}}</td>
+                <td>
+                    {{unit.user?.id}}
+                </td>
+                <td>
+                    <div *ngIf="unit.image">
+                        <a [routerLink]="['/image', unit.image?.id, 'view' ]" >{{unit.image?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/unit', unit.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/unit', unit.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(unit)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

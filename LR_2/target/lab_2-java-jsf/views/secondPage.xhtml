@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+<f:view>
+    <h:head>
+        <title>Second Page Title</title>
+    </h:head>
+
+    <h:body>
+        <p:row>
+            <p:messages id="messages" showDetail="true" closable="true" for="infoCard">
+                <p:autoUpdate/>
+            </p:messages>
+        </p:row>
+        <p:dataGrid value="#{cardBean.cards}" var="card"  columns="4" type="ordered" id="cards">
+
+            <f:facet name="header">
+                Cards
+            </f:facet>
+            <br/>
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    <p:outputLabel value="#{card.number}"/>
+                </f:facet>
+
+                <p:outputLabel value="User" />
+                <p:outputLabel value="#{card.user.firstName}" />
+
+                <p:outputLabel value="Valid date" />
+                <p:outputLabel value="#{card.validDate}" />
+
+                <p:outputLabel value="Balance:" />
+                <p:outputLabel id="cardBalance" value="#{card.balance}"/>
+            </p:panelGrid><br/>
+            <h:form id="infoCard">
+
+                <p:row>
+                    <p:column>
+                        <p:inputNumber value="#{cardBean.payment}" decimalPlaces="2" converter="dollarConverter" required="true"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:commandButton  action="#{cardBean.pay}" value="Pay">
+                        <f:setPropertyActionListener value="#{card}" target="#{cardBean.selectedCard}"/>
+                    </p:commandButton>
+                </p:row>
+            </h:form><br/><br/>
+
+        </p:dataGrid >
+
+
+
+        <p:panel id="addCard" header="Add card" toggleable="true" toggleOrientation="horizontal" style="margin-bottom:20px" collapsed="true">
+
+            <p:panelGrid cellpadding="10">
+                <h:form id="addCardForm">
+                    <p:row>
+                        <p:messages showDetail="true" closable="true" for="addCard">
+                            <p:autoUpdate/>
+                        </p:messages>
+                    </p:row><br/>
+                    <p:row>
+                        <p:outputLabel value="Number"/><br/>
+                        <p:inputText required="true" value="#{cardBean.newnumber}">
+                            <f:validateLength minimum="11" maximum="13"/>
+                        </p:inputText>
+                    </p:row><br/>
+                    <p:row>
+                        <p:outputLabel value="Valid date (YYYY-MM-DD)"/><br/>
+                        <p:inputText required="true" value="#{cardBean.newvalidDate}"/>
+                    </p:row><br/>
+                    <p:row>
+                        <p:outputLabel value="CVV"/><br/>
+                        <p:inputText required="true" value="#{cardBean.newcvv}"/>
+                    </p:row><br/>
+                    <p:row>
+                        <p:outputLabel value="Balance (x..x.yy)"/><br/>
+                        <p:inputText required="true" value="#{cardBean.newbalance}"/>
+                    </p:row><br/><br/>
+                    <p:row>
+                        <h:commandButton value="submit" action="#{cardBean.submit}" type="submit">
+                            <f:ajax execute="@form" render="@form" />
+                        </h:commandButton>
+                    </p:row>
+                </h:form>
+            </p:panelGrid>
+
+
+        </p:panel>
+
+    </h:body>
+</f:view>
+</html>

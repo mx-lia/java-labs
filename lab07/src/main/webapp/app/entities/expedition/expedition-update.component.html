@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-expedition-heading">Create or edit a Expedition</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_complexity">Complexity</label>
+                    <select class="form-control" name="complexity" formControlName="complexity" id="field_complexity">
+                        <option value="EXTREME">EXTREME</option>
+                        <option value="HARD">HARD</option>
+                        <option value="NORMAL">NORMAL</option>
+                        <option value="EASY">EASY</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dispatchTime">Dispatch Time</label>
+                    <div class="d-flex">
+                        <input id="field_dispatchTime" type="datetime-local" class="form-control" name="dispatchTime" formControlName="dispatchTime" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_deadLine">Dead Line</label>
+                    <div class="input-group">
+                        <input id="field_deadLine" type="text" class="form-control" name="deadLine" ngbDatepicker  #deadLineDp="ngbDatepicker" formControlName="deadLine"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="deadLineDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_rate">Rate</label>
+                    <input type="number" class="form-control" name="rate" id="field_rate"
+                           formControlName="rate"/>
+                    <div *ngIf="editForm.get('rate').invalid && (editForm.get('rate').dirty || editForm.get('rate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('rate').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('rate').errors.max">
+                            This field cannot be more than 1.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('rate')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_unit">Unit</label>
+                    <select class="form-control" id="field_unit" name="unit" formControlName="unit">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="unitOption.id === editForm.get('unit').value?.id ? editForm.get('unit').value : unitOption" *ngFor="let unitOption of units; trackBy: trackUnitById">{{unitOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

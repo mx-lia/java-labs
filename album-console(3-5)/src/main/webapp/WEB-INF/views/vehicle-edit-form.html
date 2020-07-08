@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit Vehicle</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/static/css/style.css}"/>
+</head>
+<body>
+<h1>Edit a vehicle:</h1>
+<form th:object="${editVehicleDto}" th:action="@{/vehicles/{id}(id=${editVehicleDto.id})}" method="post">
+    Type:
+    <input type="text" th:field="*{type}"/>
+    <br/>
+    Model:
+    <textarea th:field="*{model}"></textarea>
+    <input type="submit" value="Update"/>
+</form>
+<br/>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color:red;font-style:italic;">
+</div>
+</body>

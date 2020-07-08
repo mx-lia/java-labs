@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Payment</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="resources/templates/default.xhtml">
+        <ui:define name="content">
+            <h:form>
+                <h:panelGrid columns="3" id="paymentPanel">
+                    <h:outputText value="Card number"/>
+                    <h:inputText id="cardNumber" required="true" value="#{cardController.cardNumber}"
+                                 label="Card number">
+                        <f:validateLength minimum="1" maximum="10"/>
+                    </h:inputText>
+                    <h:message for="cardNumber" style="color:red"/>
+
+                    <h:outputText value="Expiration date"/>
+                    <h:inputText id="expDate" required="true" value="#{cardController.expirationDate}"
+                                 label="Expiration date">
+                        <f:validator binding="#{expirationDateValidator}"/>
+                    </h:inputText>
+                    <h:message for="expDate" style="color:red"/>
+
+                    <h:outputText value="CVC"/>
+                    <h:inputText id="cvc" required="true" value="#{cardController.cvc}" label="CVC">
+                        <f:validateLength minimum="3" maximum="3"/>
+                    </h:inputText>
+                    <h:message for="cvc" style="color:red"/>
+
+                    <h:outputText value="PaymentValue"/>
+                    <h:inputText id="paymentValue" required="true" value="#{cardController.paymentValue}"
+                                 label="Payment value">
+                        <f:converter binding="#{bynUahConverter}"/>
+                    </h:inputText>
+                    <h:message for="paymentValue" style="color:red"/>
+                </h:panelGrid>
+
+                <h:commandButton action="#{cardController.pay()}"
+                                 value="Pay"/>
+            </h:form>
+            <ui:fragment rendered="#{cardController.errorMessage ne null}">
+                <div>
+                    <h:outputText value="Error:#{cardController.errorMessage}" style="color:red"/>
+                </div>
+            </ui:fragment>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

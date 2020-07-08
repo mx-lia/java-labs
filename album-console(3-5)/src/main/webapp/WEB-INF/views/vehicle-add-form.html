@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" type="text/css" th:href="@{resources/static/css/style.css}"/>
+</head>
+<body>
+<h1>Create a vehicle:</h1>
+<form th:action="@{/vehicles}"
+      th:object="${vehicleDto}" method="POST">
+    Route Name:
+    <input type="text" th:field="*{route}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('route')}"
+          th:errors="*{route}">
+            </span>
+    <br/>
+    Type:
+    <input type="text" th:field="*{type}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('type')}"
+          th:errors="*{type}">
+    </span>
+    <br/>
+    Release year:
+    <input type="text" th:field="*{releaseYear}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('releaseYear')}"
+          th:errors="*{releaseYear}">
+    </span>
+    <br/>
+    Model:
+    <textarea th:field="*{model}"></textarea>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('model')}"
+          th:errors="*{model}">
+    </span>
+    <input type="submit" value="Create"/>
+</form>
+<br/>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color:red;font-style:italic;">
+</div>
+</body>

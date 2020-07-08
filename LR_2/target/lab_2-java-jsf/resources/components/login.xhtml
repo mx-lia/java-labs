@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+    <composite:attribute name="user"/>
+    <composite:attribute name="buttonActionText"/>
+    <composite:attribute name="buttonActionAction" method-signature="java.lang.String action()"/>
+</composite:interface>
+
+<composite:implementation>
+    <div style="position:absolute; left: calc(50% - 300px); top:30%;">
+        <h:form style="width: 600px;">
+            <p:panel header="Login page" >
+                <br/><br/>
+                <h:outputLabel value="Email"/><br/>
+                <h:inputText id="email" size="20" rendered="true" placeholder="Email" value="#{cc.attrs.user.email}">
+                    <f:validateLength for="email" minimum="5" maximum="20"/>
+                </h:inputText>
+                <h:message for="email" style="color: lightcoral"/>
+                <br/><br/>
+                <h:outputLabel value="Password"/><br/>
+                <h:inputSecret id="password" size="20" rendered="true" placeholder="Password" value="#{cc.attrs.user.password}">
+                    <f:validateLength for="password" minimum="5" maximum="20"/>
+                </h:inputSecret>
+                <h:message for="password" style="color: lightcoral"/>
+                <br/><br/>
+                <h:commandButton value="#{cc.attrs.buttonActionText}" action="#{cc.attrs.buttonActionAction}"/>
+                <p:linkButton outcome="reg" value="Registration" style="margin-right:20px;"/>
+            </p:panel>
+        </h:form>
+
+    </div>
+</composite:implementation>
+
+</html>
